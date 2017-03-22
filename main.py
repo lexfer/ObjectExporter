@@ -1,3 +1,2 @@
-import socket
-import ssl
+import socket,ssl
 
