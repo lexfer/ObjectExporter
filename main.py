@@ -11,7 +11,7 @@ server_port = int(parser.get('server', 'port'))
 
 certfile = parser.get('ssl','ssl_certfile')
 print(certfile)
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 '''
 ssl_sock = ssl.wrap_socket(sock,
                            ca_certs=certfile,
@@ -22,5 +22,7 @@ ssl_sock.connect((server_ip, server_port))
 context = ssl.create_default_context()
 context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 context.verify_mode = ssl.CERT_REQUIRED
-context.check_hostname = True
-context.load_verify_locations(certfile)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ssl_sock = context.wrap_socket(sock)
+ssl_sock.connect((server_ip, server_port))
